@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GitHub Profile Card</title>
+  <style>
+    #profileCard {
+      display: none;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+    }
+    img {
+      width: 100px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="showBtn">Show GitHub Info</button>
+
+  <div id="profileCard">
+    <img id="avatar" src="" alt="Profile Picture">
+    <h3 id="username">Aditi-Tarale</h3>
+    <p><strong>Followers:</strong> <span id="followers">0</span></p>
+  </div>
+
+  <script>
+    function fetchGitHubData() {
+      const requestUrl = "https://api.github.com/users/Aditi-Tarale";
+      const xhr = new XMLHttpRequest();
+
+      xhr.open('GET', requestUrl);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const data = JSON.parse(this.responseText);
+          document.getElementById('avatar').src = data.avatar_url;
+          document.getElementById('followers').innerText = data.followers;
+          document.getElementById('profileCard').style.display = 'block';
+        }
+      };
+      xhr.send();
+    }
+
+    // Attach the event listener after the function is defined
+    document.getElementById("showBtn").onclick = fetchGitHubData;
+  </script>
+
+</body>
+</html>
+ 
